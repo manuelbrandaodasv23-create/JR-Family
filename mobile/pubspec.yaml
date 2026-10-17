@@ -15,7 +15,7 @@ dependencies:
   geolocator: ^14.1.1
   flutter_map: ^8.3.2
   latlong2: ^0.9.1
-  firebase_core: ^4.3.0
+  firebase_core: ^5.0.0
   firebase_messaging: ^17.0.0
   shared_preferences: ^2.5.3
   battery_plus: ^7.1.2
