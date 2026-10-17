@@ -1,0 +1,31 @@
+name: jr_family
+description: JR Family - segurança familiar com localização autorizada e transparente
+publish_to: "none"
+version: 1.1.0+2
+
+environment:
+  sdk: ">=3.10.0 <4.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  cupertino_icons: ^1.0.8
+  dio: ^5.11.1
+  flutter_secure_storage: ^11.2.0
+  geolocator: ^14.1.1
+  flutter_map: ^8.3.2
+  latlong2: ^0.9.1
+  firebase_core: ^4.3.0
+  firebase_messaging: ^17.0.0
+  shared_preferences: ^2.5.3
+  battery_plus: ^7.1.2
+  package_info_plus: ^10.2.2
+  device_info_plus: ^13.3.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^6.0.0
+
+flutter:
+  uses-material-design: true

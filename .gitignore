@@ -1,0 +1,15 @@
+.env
+*.db
+*.jks
+*.keystore
+key.properties
+google-services.json
+GoogleService-Info.plist
+*.p8
+*.p12
+*.mobileprovision
+**/__pycache__/
+**/.pytest_cache/
+**/.dart_tool/
+**/build/
+.venv/

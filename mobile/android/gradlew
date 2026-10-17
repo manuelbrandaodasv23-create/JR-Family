@@ -1,0 +1,20 @@
+#!/bin/sh
+set -e
+APP_HOME=$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)
+WRAPPER_JAR="$APP_HOME/gradle/wrapper/gradle-wrapper.jar"
+WRAPPER_URL="https://raw.githubusercontent.com/gradle/gradle/v9.3.1/gradle/wrapper/gradle-wrapper.jar"
+WRAPPER_SHA="b3a875ddc1f044746e1b1a55f645584505f4a10438c1afea9f15e92a7c42ec13"
+if [ ! -f "$WRAPPER_JAR" ]; then
+  echo "Baixando Gradle Wrapper 9.3.1..."
+  mkdir -p "$(dirname "$WRAPPER_JAR")"
+  if command -v curl >/dev/null 2>&1; then curl -fsSL "$WRAPPER_URL" -o "$WRAPPER_JAR";
+  elif command -v wget >/dev/null 2>&1; then wget -q "$WRAPPER_URL" -O "$WRAPPER_JAR";
+  else echo "curl ou wget é necessário para baixar gradle-wrapper.jar" >&2; exit 1; fi
+fi
+if command -v sha256sum >/dev/null 2>&1; then
+  ACTUAL=$(sha256sum "$WRAPPER_JAR" | awk '{print $1}')
+  [ "$ACTUAL" = "$WRAPPER_SHA" ] || { echo "Checksum inválido do Gradle Wrapper" >&2; rm -f "$WRAPPER_JAR"; exit 1; }
+fi
+JAVA_CMD="${JAVA_HOME:+$JAVA_HOME/bin/}java"
+command -v "$JAVA_CMD" >/dev/null 2>&1 || JAVA_CMD=java
+exec "$JAVA_CMD" -Dorg.gradle.appname=gradlew -classpath "$WRAPPER_JAR" org.gradle.wrapper.GradleWrapperMain "$@"

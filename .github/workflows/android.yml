@@ -1,0 +1,50 @@
+name: APK Android de teste
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths: ['mobile/**', '.github/workflows/android.yml']
+permissions:
+  contents: read
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    defaults:
+      run:
+        working-directory: mobile
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+          cache: true
+      - run: flutter --version
+      - run: chmod +x android/gradlew
+      - run: flutter pub get
+      - run: flutter analyze
+      - run: flutter test
+      - name: Compilar APK de teste
+        env:
+          JR_API_BASE_URL: ${{ vars.JR_API_BASE_URL }}
+        run: |
+          if [ -n "$JR_API_BASE_URL" ]; then
+            flutter build apk --debug --dart-define="JR_API_BASE_URL=$JR_API_BASE_URL"
+          else
+            flutter build apk --debug
+          fi
+      - name: Preparar arquivo
+        run: |
+          mkdir -p ../artifacts/android
+          cp build/app/outputs/flutter-apk/app-debug.apk ../artifacts/android/JR-Family-teste.apk
+          cd ../artifacts/android
+          sha256sum JR-Family-teste.apk > SHA256SUMS.txt
+      - uses: actions/upload-artifact@v4
+        with:
+          name: JR-Family-APK-teste
+          path: artifacts/android/*
+          if-no-files-found: error
