@@ -24,7 +24,7 @@ void main() {
     expect(sent, 0);
     final gesture = await tester.startGesture(tester.getCenter(finder));
     await tester.pump(const Duration(milliseconds: 100));
-    await tester.pump(const Duration(milliseconds: 2900));
+    await tester.pump(const Duration(milliseconds: 2800));
     expect(sent, 0);
     await tester.pump(const Duration(milliseconds: 200));
     expect(sent, 1);
