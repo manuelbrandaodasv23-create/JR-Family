@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>JR Family • Administração</title>
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+  <div class="bg"></div>
+  <main>
+    <section id="loginView" class="login-card glass">
+      <div class="brand-mark">JR</div>
+      <h1>JR Family Admin</h1>
+      <p>Administração técnica e auditoria do serviço.</p>
+      <form id="loginForm">
+        <label>E-mail<input id="email" type="email" required autocomplete="username" /></label>
+        <label>Senha<input id="password" type="password" required autocomplete="current-password" /></label>
+        <button type="submit">Entrar</button>
+      </form>
+      <div id="loginError" class="error"></div>
+      <small>Somente contas marcadas como administradoras podem acessar este painel.</small>
+    </section>
+
+    <section id="dashboardView" class="hidden dashboard">
+      <header class="topbar glass">
+        <div>
+          <div class="eyebrow">JR FAMILY</div>
+          <h1>Painel administrativo</h1>
+        </div>
+        <div class="actions">
+          <button class="ghost" id="refreshBtn">Atualizar</button>
+          <button class="danger" id="logoutBtn">Sair</button>
+        </div>
+      </header>
+
+      <div id="privacyBanner" class="privacy glass">O painel técnico não exibe coordenadas de famílias por padrão.</div>
+
+      <section id="cards" class="cards"></section>
+
+      <section class="panel glass">
+        <h2>Segurança e aplicativo</h2>
+        <button id="sessionsBtn">Sessões</button><button id="notificationsBtn">Notificações</button><button id="versionsBtn">Versões</button>
+        <pre id="technicalResult"></pre>
+        <form id="versionForm">
+          <label>Plataforma<select id="versionPlatform"><option value="android">Android</option><option value="ios">iOS</option></select></label>
+          <label>Versão<input id="versionName" required placeholder="1.1.0" /></label>
+          <label>Build<input id="versionBuild" type="number" min="1" required /></label>
+          <label><input id="versionRequired" type="checkbox" /> Atualização obrigatória</label>
+          <button type="submit">Registrar versão</button>
+        </form>
+      </section>
+      <section class="grid">
+        <article class="panel glass">
+          <div class="panel-head"><h2>Dispositivos</h2><span id="deviceCount"></span></div>
+          <div class="table-wrap"><table><thead><tr><th>Nome</th><th>Plataforma</th><th>App</th><th>Bateria</th><th>Localização</th><th>Background</th><th>Último sinal</th><th>Push</th></tr></thead><tbody id="devicesBody"></tbody></table></div>
+        </article>
+
+        <article class="panel glass">
+          <div class="panel-head"><h2>Alertas recentes</h2><span id="alertCount"></span></div>
+          <div class="table-wrap"><table><thead><tr><th>Tipo</th><th>Título</th><th>Família</th><th>Data</th></tr></thead><tbody id="alertsBody"></tbody></table></div>
+        </article>
+
+        <article class="panel glass">
+          <div class="panel-head"><h2>Usuários</h2><input id="userSearch" placeholder="Pesquisar nome ou e-mail" /><span id="userCount"></span></div>
+          <div class="table-wrap"><table><thead><tr><th>Nome</th><th>E-mail</th><th>Admin</th><th>Criado</th><th>Ações</th></tr></thead><tbody id="usersBody"></tbody></table></div>
+        </article>
+
+        <article class="panel glass">
+          <div class="panel-head"><h2>Auditoria</h2><span id="auditCount"></span></div>
+          <div class="table-wrap"><table><thead><tr><th>Ação</th><th>Entidade</th><th>ID</th><th>Data</th></tr></thead><tbody id="auditBody"></tbody></table></div>
+        </article>
+      </section>
+    </section>
+  </main>
+  <script src="./app.js"></script>
+</body>
+</html>
